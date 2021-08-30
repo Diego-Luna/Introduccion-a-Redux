@@ -13,28 +13,14 @@ class App extends Component {
   async componentDidMount() {
     const respuesta = await axios.get("https://jsonplaceholder.typicode.com/users");
 
-    console.log(respuesta);
+    console.log("respuesta ", respuesta.data);
 
     this.setState({
-      usuarios: [
-        {
-          id: 1,
-          name: "Diego",
-          email: "diego@gmail.com",
-          web: "moonmakers.com",
-        },
-        {
-          id: 2,
-          name: "Diego Francisco",
-          email: "diegofco@gmail.com",
-          web: "moonmakers.com",
-        },
-      ],
+      usuarios: respuesta.data
     });
   }
 
   render() {
-    console.log(this.state.usuarios);
 
     return (
       <div className="margen">
@@ -51,7 +37,7 @@ class App extends Component {
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
-                <td>{item.web}</td>
+                <td>{item.website}</td>
               </tr>
             ))}
           </tbody>
