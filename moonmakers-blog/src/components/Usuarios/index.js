@@ -13,6 +13,7 @@ const Usuarios = (props) => {
 
   useEffect(() => {
     getUsuarios();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const ponerFilas = () =>
@@ -23,6 +24,8 @@ const Usuarios = (props) => {
         <td>{usuario.website}</td>
       </tr>
     ));
+
+  console.log(props);
 
   return (
     <div>
