@@ -4,22 +4,24 @@ import axios from "axios";
 // para conectar nuestro componente, a nuestro reducer
 import { connect } from "react-redux";
 
+// importamos nuestros actions
+import * as usuariosAction from "../../actions/usuariosActions";
+
 class Usuarios extends Component {
+  componentDidMount() {
+    // const respuesta = await axios.get(
+    //   "https://jsonplaceholder.typicode.com/users"
+    // );
+    // console.log("respuesta ", respuesta.data);
+    // this.setState({
+    //   usuarios: respuesta.data,
+    // });
 
-
-  // async componentDidMount() {
-  //   const respuesta = await axios.get(
-  //     "https://jsonplaceholder.typicode.com/users"
-  //   );
-
-  //   console.log("respuesta ", respuesta.data);
-
-  //   this.setState({
-  //     usuarios: respuesta.data,
-  //   });
-  // }
+    this.props.traerTodos();
+  }
 
   render() {
+    console.log(this.props);
 
     return (
       <div>
@@ -51,6 +53,4 @@ const mapStateToProps = (reducers) => {
   return reducers.usuarios;
 };
 
-export default connect(mapStateToProps, {
-  /* actions*/
-})(Usuarios);
+export default connect(mapStateToProps, usuariosAction)(Usuarios);
