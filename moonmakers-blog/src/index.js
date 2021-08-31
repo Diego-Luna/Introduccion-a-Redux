@@ -3,6 +3,15 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./components/App";
 
+// importamos redux
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+
+// creamos una almacemamiento o un Stores
+// le pasamos todos los reducers:
+// y el estado inicial
+const store = createStore({}, {});
+
 ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
