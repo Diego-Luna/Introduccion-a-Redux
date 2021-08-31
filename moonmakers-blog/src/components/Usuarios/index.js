@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 
 // para conectar nuestro componente, a nuestro reducer
 import { connect } from "react-redux";
