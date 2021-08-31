@@ -1,23 +1,23 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+// para conectar nuestro componente, a nuestro reducer
+import { connect } from "react-redux";
+
 class Usuarios extends Component {
-  constructor() {
-    super();
-    this.state = {
-      usuarios: [],
-    };
-  }
 
-  async componentDidMount() {
-    const respuesta = await axios.get("https://jsonplaceholder.typicode.com/users");
 
-    console.log("respuesta ", respuesta.data);
+  // async componentDidMount() {
+  //   const respuesta = await axios.get(
+  //     "https://jsonplaceholder.typicode.com/users"
+  //   );
 
-    this.setState({
-      usuarios: respuesta.data
-    });
-  }
+  //   console.log("respuesta ", respuesta.data);
+
+  //   this.setState({
+  //     usuarios: respuesta.data,
+  //   });
+  // }
 
   render() {
 
@@ -32,7 +32,7 @@ class Usuarios extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.usuarios.map((item) => (
+            {this.props.usuarios.map((item) => (
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
@@ -46,4 +46,11 @@ class Usuarios extends Component {
   }
 }
 
-export default Usuarios;
+// conectamos el estado a nuestro componente
+const mapStateToProps = (reducers) => {
+  return reducers.usuarios;
+};
+
+export default connect(mapStateToProps, {
+  /* actions*/
+})(Usuarios);
