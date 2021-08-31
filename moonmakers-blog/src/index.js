@@ -4,8 +4,11 @@ import "./index.css";
 import App from "./components/App";
 
 // importamos redux
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+
+// importamos redux thunk, para tener funciones asincronicas dentro de los actions.
+import reduxThunk from "redux-thunk";
 
 // importamos los reducers ( funciones que resiven el estado y la accion )
 import reducers from "./reducers";
@@ -13,7 +16,8 @@ import reducers from "./reducers";
 // creamos una almacemamiento o un Stores
 // le pasamos todos los reducers:
 // y el estado inicial
-const store = createStore(reducers, {});
+// le ponemos el Middleware
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
   // le pasamos el provaider con el stado o Store
