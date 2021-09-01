@@ -14,6 +14,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         publicaciones: action.payload,
         cargando: false,
+        error: ""
       };
 
     case CARGANDO:
