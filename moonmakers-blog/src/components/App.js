@@ -9,9 +9,11 @@ const Tareas = () => <div>Tareas</div>;
 const App = () => (
   <BrowserRouter>
     <Menu />
-    <Switch className="margen">
-      <Route exact path="/" component={Ususarios} />
-      <Route exact path="/tareas" component={Tareas} />
+    <Switch>
+      <div className="margen">
+        <Route exact path="/" component={Ususarios} />
+        <Route exact path="/tareas" component={Tareas} />
+      </div>
     </Switch>
   </BrowserRouter>
 );

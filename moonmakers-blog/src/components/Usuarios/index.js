@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
 
+import Spinner from "../General/Spinner";
+import Error from "../General/Error";
+import Tabla from "./Tabla";
+
 // para conectar nuestro componente, a nuestro reducer
 import { connect } from "react-redux";
 
@@ -16,38 +20,24 @@ const Usuarios = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const ponerFilas = () =>
-    props.usuarios.map((usuario) => (
-      <tr key={usuario.id}>
-        <td>{usuario.name}</td>
-        <td>{usuario.email}</td>
-        <td>{usuario.website}</td>
-      </tr>
-    ));
+  const ponerContenido = () => {
+    if (props.cargando) {
+      return <Spinner />;
+    }
+
+    if (props.error_user) {
+      return <Error mensaje={props.error_user} />;
+    }
+
+    return <Tabla />;
+  };
 
   console.log(props);
 
   return (
     <div>
-      <table className="tabla">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Enlace</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ponerFilas()}
-          {/* {this.props.usuarios.map((item) => (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>{item.email}</td>
-              <td>{item.website}</td>
-            </tr>
-          ))} */}
-        </tbody>
-      </table>
+      <h1>Usuarios</h1>
+      {ponerContenido()}
     </div>
   );
 };
