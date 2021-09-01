@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TRAER_TODOS, CARGANDO, ERROR_USER } from "../Types/usuauiosTypes";
+import { TRAER_TODOS, CARGANDO, ERROR } from "../Types/usuauiosTypes";
 
 export const traerTodos = () => async (dispatch) => {
   dispatch({
@@ -19,7 +19,7 @@ export const traerTodos = () => async (dispatch) => {
     console.log("Error en traerTodos: ");
     console.log(error.message);
     dispatch({
-      type: ERROR_USER,
+      type: ERROR,
       payload: "Algo salió mal, intente mas tarde",
     });
   }

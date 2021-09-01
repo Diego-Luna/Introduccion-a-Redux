@@ -25,8 +25,8 @@ const Usuarios = (props) => {
       return <Spinner />;
     }
 
-    if (props.error_user) {
-      return <Error mensaje={props.error_user} />;
+    if (props.error) {
+      return <Error mensaje={props.error} />;
     }
 
     return <Tabla />;
