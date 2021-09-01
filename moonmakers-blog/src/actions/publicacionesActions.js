@@ -5,6 +5,10 @@ import {
   ERROR,
 } from "../Types/publicacionesTypes";
 
+import * as usuariosTypes from "../Types/usuauiosTypes";
+
+const { TRAER_TODOS: USUARIOS_TRAER_TODOS } = usuariosTypes;
+
 // usamos el key, que nos se pone, al momento de llamar la funcion
 // usamos getState, para traer el estado actual
 export const traerPorUsuario = (key) => async (dispatch, getState) => {
@@ -24,6 +28,19 @@ export const traerPorUsuario = (key) => async (dispatch, getState) => {
     // evitamos que se agan segundas busquedas en los post
     const { publicaciones } = getState().publicacionesReducer;
     const publicaciones_actualizadas = [...publicaciones, respuesta.data];
+
+    // le decimos en que selda estan las publicaciones de nuestro usuario
+    const publicaciones_key = publicaciones_actualizadas.length - 1;
+    const usuarios_actualizados = [...usuarios];
+    usuarios_actualizados[key] = {
+      ...usuarios[key],
+      publicaciones_key,
+    };
+
+    dispatch({
+      type: USUARIOS_TRAER_TODOS,
+      payload: usuarios_actualizados,
+    });
 
     dispatch({
       type: TRAER_POR_USUARIO,
