@@ -42,7 +42,7 @@ const Usuarios = (props) => {
 
 // conectamos el estado a nuestro componente
 const mapStateToProps = (reducers) => {
-  return reducers.usuarios;
+  return reducers.usuariosReducer;
 };
 
 export default connect(mapStateToProps, usuariosAction)(Usuarios);

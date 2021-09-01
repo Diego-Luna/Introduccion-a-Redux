@@ -5,13 +5,14 @@ import { connect } from "react-redux";
 
 // importamos nuestros actions
 import * as usuariosAction from "../../actions/usuariosActions";
+import * as publicacionesActions from "../../actions/publicacionesActions";
 
 const Posts = (props) => {
   const { key } = useParams();
 
   useEffect(() => {
-    if (!props.usuarios.length) {
-      // console.log("traelos");
+    if (!props.usuariosReducer.usuarios.length) {
+      console.log("traelos");
       props.traerTodos();
     }
   });
@@ -26,8 +27,13 @@ const Posts = (props) => {
   );
 };
 
-const mapStateToProps = (reducers) => {
-  return reducers.usuarios;
+const mapStateToProps = ({ usuariosReducer, publicacionesReducer }) => {
+  return { usuariosReducer, publicacionesReducer };
 };
 
-export default connect(mapStateToProps, usuariosAction)(Posts);
+const mapDispatchToProps = {
+  ...usuariosAction,
+  ...publicacionesActions,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);
