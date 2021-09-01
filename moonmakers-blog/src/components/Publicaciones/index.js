@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 import { useParams } from "react-router-dom";
 
 import { connect } from "react-redux";
@@ -7,33 +7,34 @@ import { connect } from "react-redux";
 import * as usuariosAction from "../../actions/usuariosActions";
 import * as publicacionesActions from "../../actions/publicacionesActions";
 
-const Posts = (props) => {
-  const { key } = useParams();
+const { traerTodos: usuariosTraerTodos } = usuariosAction;
+const { traerTodos: publicacionesTraerTodos } = publicacionesActions;
 
-  useEffect(() => {
-    if (!props.usuariosReducer.usuarios.length) {
-      console.log("traelos");
-      props.traerTodos();
+// const Posts = (props) => {
+class Posts extends Component {
+  componentDidMount() {
+    if (!this.props.usuariosReducer.usuarios.length) {
+      this.props.usuariosTraerTodos();
     }
-  });
+  }
 
-  console.log(props);
-
-  return (
-    <div>
-      <h1>Publicaciones</h1>
-      {key}
-    </div>
-  );
-};
-
+  render() {
+    console.log(this.props);
+    return (
+      <div>
+        <h1>Publicaciones de</h1>
+        {this.props.match.params.key}
+      </div>
+    );
+  }
+}
 const mapStateToProps = ({ usuariosReducer, publicacionesReducer }) => {
   return { usuariosReducer, publicacionesReducer };
 };
 
 const mapDispatchToProps = {
-  ...usuariosAction,
-  ...publicacionesActions,
+  usuariosTraerTodos,
+  publicacionesTraerTodos,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
