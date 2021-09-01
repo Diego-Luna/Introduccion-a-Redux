@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { TRAER_TODOS, CARGANDO, ERROR } from "../Types/publicacionesTypes";
+import { TRAER_POR_USUARIO, CARGANDO, ERROR } from "../Types/publicacionesTypes";
 
 const INITIAL_STATE = {
   publicaciones: [],
@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case TRAER_TODOS:
+    case TRAER_POR_USUARIO:
       return {
         ...state,
         publicaciones: action.payload,

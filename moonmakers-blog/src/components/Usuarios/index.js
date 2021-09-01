@@ -12,7 +12,9 @@ import * as usuariosAction from "../../actions/usuariosActions";
 
 const Usuarios = (props) => {
   const getUsuarios = async () => {
-    props.traerTodos();
+    if(!props.usuarios.length){
+      props.traerTodos();
+    }
   };
 
   useEffect(() => {
