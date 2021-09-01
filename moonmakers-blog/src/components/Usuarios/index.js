@@ -32,8 +32,6 @@ const Usuarios = (props) => {
     return <Tabla />;
   };
 
-  console.log(props);
-
   return (
     <div>
       <h1>Usuarios</h1>
