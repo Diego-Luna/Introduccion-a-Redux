@@ -4,14 +4,18 @@ import { connect } from "react-redux";
 
 import Cargando from "../General/Spinner";
 import Error from "../General/Error";
+import Comentarios from "./Comentarios";
 
 // importamos nuestros actions
 import * as usuariosAction from "../../actions/usuariosActions";
 import * as publicacionesActions from "../../actions/publicacionesActions";
 
 const { traerTodos: usuariosTraerTodos } = usuariosAction;
-const { traerPorUsuario: publicacionesTraerPorUsuario, abrirCerrar } =
-  publicacionesActions;
+const {
+  traerPorUsuario: publicacionesTraerPorUsuario,
+  abrirCerrar,
+  traerCometarios,
+} = publicacionesActions;
 
 // const Posts = (props) => {
 class Posts extends Component {
@@ -104,13 +108,20 @@ class Posts extends Component {
       <div
         key={publicacion.id}
         className="pub_titulo"
-        onClick={() => this.props.abrirCerrar(pub_key, com_key)}
+        onClick={() =>
+          this.mostartComentarios(pub_key, com_key, publicacion.comentarios)
+        }
       >
         <h2>{publicacion.title}</h2>
         <h3>{publicacion.body}</h3>
-        {publicacion.abierto ? "abierto" : "cerrado"}
+        {publicacion.abierto ? <Comentarios /> : ""}
       </div>
     ));
+
+  mostartComentarios = (pub_key, com_key, comentarios) => {
+    this.props.abrirCerrar(pub_key, com_key);
+    this.props.traerCometarios(pub_key, com_key);
+  };
 
   render() {
     console.log(this.props);
@@ -130,6 +141,7 @@ const mapDispatchToProps = {
   usuariosTraerTodos,
   publicacionesTraerPorUsuario,
   abrirCerrar,
+  traerCometarios
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
