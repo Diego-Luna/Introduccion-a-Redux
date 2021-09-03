@@ -4,7 +4,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Menu from "./Menu";
 import Ususarios from "./Usuarios";
 import Post from "./Publicaciones";
-import Tareas from "./Tareas"
+import Tareas from "./Tareas";
+import TareasGuardar from "./Tareas/Guardar";
 
 const App = () => (
   <BrowserRouter>
@@ -13,6 +14,7 @@ const App = () => (
       <div className="margen">
         <Route exact path="/" component={Ususarios} />
         <Route exact path="/tareas" component={Tareas} />
+        <Route exact path="/tareas/:key" component={TareasGuardar} />
         <Route exact path="/publicaciones/:key" component={Post} />
       </div>
     </Switch>

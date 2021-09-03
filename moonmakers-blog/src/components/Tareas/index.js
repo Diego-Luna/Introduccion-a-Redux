@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import Cargando from "../General/Spinner";
 import Error from "../General/Error";
@@ -41,7 +42,7 @@ class Tareas extends Component {
     };
 
     return Object.keys(porUsuarios).map((tar_id) => (
-      <div key={tar_id} >
+      <div key={tar_id}>
         <input type="checkbox" defaultChecked={porUsuarios[tar_id].completed} />
         {porUsuarios[tar_id].title}
       </div>
@@ -49,8 +50,14 @@ class Tareas extends Component {
   };
 
   render() {
-    console.log(this.props);
-    return <div>{this.mostrarContenido()}</div>;
+    return (
+      <div>
+        <button>
+          <Link to="/tareas/guardar">Agregar</Link>
+        </button>
+        {this.mostrarContenido()}
+      </div>
+    );
   }
 }
 
