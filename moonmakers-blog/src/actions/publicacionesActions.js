@@ -1,9 +1,5 @@
 import axios from "axios";
-import {
-  ACTUALIZAR,
-  CARGANDO,
-  ERROR,
-} from "../Types/publicacionesTypes";
+import { ACTUALIZAR, CARGANDO, ERROR } from "../Types/publicacionesTypes";
 
 import * as usuariosTypes from "../Types/usuauiosTypes";
 
@@ -65,6 +61,8 @@ export const traerPorUsuario = (key) => async (dispatch, getState) => {
 
 // usamos getState, para traer el estado actual
 export const abrirCerrar = (pub_key, com_key) => (dispatch, getState) => {
+  // En el abrirCerrarActions, selecciono a la publicación que le di click y la guardo en const, y hago otra const que va a tener esa publicación que le di click y modifica la propiedad de abierto por el contrario que tiene !seleccionada.abierto.
+
   const { publicaciones } = getState().publicacionesReducer;
   const seleccionada = publicaciones[pub_key][com_key];
 
@@ -73,14 +71,17 @@ export const abrirCerrar = (pub_key, com_key) => (dispatch, getState) => {
     abierto: !seleccionada.abierto,
   };
 
+  // Guardamos en constante a todas las publicaciones de todos los usuarios, seleccionamos de todas las publicaciones la que le corresponden al usuario y desplegamos desplegamos todas las publicaciones de este usuario y por ultimo de todas las publicaciones del usuario, selecciono a la que se le dio click y sera igual a la publicacion pero con el abierto cambiado.
+
   const publicaciones_actualizadas = [...publicaciones];
   publicaciones_actualizadas[pub_key] = [...publicaciones[pub_key]];
 
   publicaciones_actualizadas[pub_key][com_key] = actualisada;
 
+  // Hago un **dispatch **mandando el arreglo con todas las publicaciones de los usuarios al PublicacionesReducer, pero a la publicación que se le dio click será igual a la publicación pero con el atributo abierto cambiado.
+
   dispatch({
     type: ACTUALIZAR,
     payload: publicaciones_actualizadas,
   });
-
 };
