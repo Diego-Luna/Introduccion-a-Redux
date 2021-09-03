@@ -11,9 +11,21 @@ export const traerTodas = () => async (dispatch) => {
       "https://jsonplaceholder.typicode.com/todos"
     );
 
+    // organisamos las tareas por id del usuario
+    const tareas = {};
+    respuesta.data.map(
+      (tar) =>
+        (tareas[tar.userId] = {
+          ...tareas[tar.userId],
+          [tar.id]: {
+            ...tar,
+          },
+        })
+    );
+
     dispatch({
       type: TRAER_TODAS,
-      payload: respuesta.data,
+      payload: tareas,
     });
   } catch (error) {
     console.log("Error en traerTodos: ");
