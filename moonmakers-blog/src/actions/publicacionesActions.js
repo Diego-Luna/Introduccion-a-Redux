@@ -1,6 +1,6 @@
 import axios from "axios";
 import {
-  TRAER_POR_USUARIO,
+  ACTUALIZAR,
   CARGANDO,
   ERROR,
 } from "../Types/publicacionesTypes";
@@ -50,7 +50,7 @@ export const traerPorUsuario = (key) => async (dispatch, getState) => {
     });
 
     dispatch({
-      type: TRAER_POR_USUARIO,
+      type: ACTUALIZAR,
       payload: publicaciones_actualizadas,
     });
   } catch (error) {
@@ -63,6 +63,24 @@ export const traerPorUsuario = (key) => async (dispatch, getState) => {
   }
 };
 
-export const abrirCerrar = (pub_key, com_key) => (dispatch) => {
-  console.log(pub_key, com_key);
+// usamos getState, para traer el estado actual
+export const abrirCerrar = (pub_key, com_key) => (dispatch, getState) => {
+  const { publicaciones } = getState().publicacionesReducer;
+  const seleccionada = publicaciones[pub_key][com_key];
+
+  const actualisada = {
+    ...seleccionada,
+    abierto: !seleccionada.abierto,
+  };
+
+  const publicaciones_actualizadas = [...publicaciones];
+  publicaciones_actualizadas[pub_key] = [...publicaciones[pub_key]];
+
+  publicaciones_actualizadas[pub_key][com_key] = actualisada;
+
+  dispatch({
+    type: ACTUALIZAR,
+    payload: publicaciones_actualizadas,
+  });
+
 };

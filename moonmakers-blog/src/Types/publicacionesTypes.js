@@ -1,3 +1,3 @@
-export const TRAER_POR_USUARIO = "traer_publicaciones_por_usuarios";
+export const ACTUALIZAR = "traer_publicaciones_actualizar";
 export const CARGANDO = "cargando_publicaciones";
 export const ERROR = "error-user_publicaciones";
