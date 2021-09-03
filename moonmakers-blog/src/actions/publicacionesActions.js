@@ -47,11 +47,11 @@ export const traerPorUsuario = (key) => async (dispatch, getState) => {
       payload: publicaciones_actualizadas,
     });
   } catch (error) {
-    console.log("Error en traerTodos: ");
+    console.log("Error en publicaciones por usuario");
     console.log(error.message);
     dispatch({
       type: ERROR,
-      payload: "Algo salió mal, intente mas tarde",
+      payload: "Informacion de usuario no disponible",
     });
   }
 };
