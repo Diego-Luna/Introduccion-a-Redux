@@ -120,7 +120,9 @@ class Posts extends Component {
 
   mostartComentarios = (pub_key, com_key, comentarios) => {
     this.props.abrirCerrar(pub_key, com_key);
-    this.props.traerCometarios(pub_key, com_key);
+    if (!comentarios.length) {
+      this.props.traerCometarios(pub_key, com_key);
+    }
   };
 
   render() {
@@ -141,7 +143,7 @@ const mapDispatchToProps = {
   usuariosTraerTodos,
   publicacionesTraerPorUsuario,
   abrirCerrar,
-  traerCometarios
+  traerCometarios,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
