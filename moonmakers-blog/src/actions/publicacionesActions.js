@@ -3,6 +3,7 @@ import {
   ACTUALIZAR,
   CARGANDO,
   ERROR,
+  COM_ACTUALIZAR,
   COM_CARGANDO,
   COM_ERROR,
 } from "../Types/publicacionesTypes";
@@ -94,7 +95,6 @@ export const abrirCerrar = (pub_key, com_key) => (dispatch, getState) => {
 
 export const traerCometarios =
   (pub_key, com_key) => async (dispatch, getState) => {
-
     dispatch({
       type: COM_CARGANDO,
     });
@@ -117,14 +117,14 @@ export const traerCometarios =
 
       publicaciones_actualizadas[pub_key][com_key] = actualisada;
       dispatch({
-        type: ACTUALIZAR,
+        type: COM_ACTUALIZAR,
         payload: publicaciones_actualizadas,
       });
     } catch (error) {
       console.log(error.message);
       dispatch({
         type: COM_ERROR,
-        payload: "Comentarios no disponibles"
+        payload: "Comentarios no disponibles",
       });
     }
   };

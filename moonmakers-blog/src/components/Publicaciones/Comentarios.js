@@ -6,11 +6,11 @@ import Cargando from "../General/Spinner";
 import Error from "../General/Error";
 
 const Comentarios = (props) => {
-  if (props.cargando) {
-    return <Cargando />;
+  if (props.com_error) {
+    return <Error mensaje={props.com_error} />;
   }
-  if (props.error) {
-    return <Error mensaje={props.error} />;
+  if (props.com_cargando && !props.comentarios.length) {
+    return <Cargando />;
   }
 
   const ponerComentarios = () =>
