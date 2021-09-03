@@ -10,7 +10,8 @@ import * as usuariosAction from "../../actions/usuariosActions";
 import * as publicacionesActions from "../../actions/publicacionesActions";
 
 const { traerTodos: usuariosTraerTodos } = usuariosAction;
-const { traerPorUsuario: publicacionesTraerPorUsuario } = publicacionesActions;
+const { traerPorUsuario: publicacionesTraerPorUsuario, abrirCerrar } =
+  publicacionesActions;
 
 // const Posts = (props) => {
 class Posts extends Component {
@@ -92,17 +93,23 @@ class Posts extends Component {
     }
 
     const { publicaciones_key } = usuarios[key];
-    return publicaciones[publicaciones_key].map((publicacion) => (
+    return this.mostrarInfo(
+      publicaciones[publicaciones_key],
+      publicaciones_key
+    );
+  };
+
+  mostrarInfo = (publicaciones, pub_key) =>
+    publicaciones.map((publicacion) => (
       <div
         key={publicacion.id}
         className="pub_titulo"
-        onClick={() => alert(publicacion.id)}
+        onClick={() => this.props.abrirCerrar()}
       >
         <h2>{publicacion.title}</h2>
         <h3>{publicacion.body}</h3>
       </div>
     ));
-  };
 
   render() {
     console.log(this.props);
@@ -121,6 +128,7 @@ const mapStateToProps = ({ usuariosReducer, publicacionesReducer }) => {
 const mapDispatchToProps = {
   usuariosTraerTodos,
   publicacionesTraerPorUsuario,
+  abrirCerrar,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);

@@ -25,9 +25,16 @@ export const traerPorUsuario = (key) => async (dispatch, getState) => {
       `http://jsonplaceholder.typicode.com/posts?userId=${usuario_id}`
     );
 
+    // cambiamos la respuesta, si estan abiertos los comentarios
+    const nuevas = respuesta.data.map((publicacion) => ({
+      ...publicacion,
+      comentarios: [],
+      abierto: false,
+    }));
+
     // evitamos que se agan segundas busquedas en los post
     const { publicaciones } = getState().publicacionesReducer;
-    const publicaciones_actualizadas = [...publicaciones, respuesta.data];
+    const publicaciones_actualizadas = [...publicaciones, nuevas];
 
     // le decimos en que selda estan las publicaciones de nuestro usuario
     const publicaciones_key = publicaciones_actualizadas.length - 1;
@@ -54,4 +61,8 @@ export const traerPorUsuario = (key) => async (dispatch, getState) => {
       payload: "Informacion de usuario no disponible",
     });
   }
+};
+
+export const abrirCerrar = () => (dispatch) => {
+  alert("hola");
 };
