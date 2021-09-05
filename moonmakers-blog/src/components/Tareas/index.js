@@ -45,6 +45,10 @@ class Tareas extends Component {
       <div key={tar_id}>
         <input type="checkbox" defaultChecked={porUsuarios[tar_id].completed} />
         {porUsuarios[tar_id].title}
+        <button className="m_left">
+          <Link to={`/tareas/guardar/${user_id}/${tar_id}`}>Editar</Link>
+        </button>
+        <button className="m_left">Eliminar</button>
       </div>
     ));
   };

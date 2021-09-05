@@ -17,15 +17,54 @@ class Guardar extends Component {
     this.props.cambioUsuarioTitulo(event.target.value);
   };
 
+  componentDidMount() {
+    const {
+      match: {
+        params: { usu_id, tar_id },
+      },
+      tareas,
+      cambioUsuarioId,
+      cambioUsuarioTitulo,
+    } = this.props;
+
+    if (usu_id && tar_id) {
+      const tarea = tareas[usu_id][tar_id];
+      console.log(tarea);
+      console.log(tarea.title);
+      cambioUsuarioId(tarea.userId);
+      cambioUsuarioTitulo(tarea.title);
+    }
+  }
+
   gruardar = () => {
-    const { usuario_id, titulo, agregar } = this.props;
+    const {
+      usuario_id,
+      titulo,
+      agregar,
+      match: {
+        params: { usu_id, tar_id },
+      },
+      tareas,
+      editar,
+    } = this.props;
     const nuevaTarea = {
       userId: usuario_id,
       title: titulo,
       completed: false,
     };
 
-    agregar(nuevaTarea);
+    if (usu_id && tar_id) {
+      const tarea = tareas[usu_id][tar_id];
+      const tarea_editada = {
+        ...nuevaTarea,
+        completed: tarea.completed,
+        id: tarea.id,
+      };
+
+      editar(tarea_editada);
+    } else {
+      agregar(nuevaTarea);
+    }
   };
 
   deshabilitar = () => {
