@@ -1,10 +1,19 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { TRAER_TODAS, CARGANDO, ERROR } from "../Types/tareasTypes";
+import {
+  TRAER_TODAS,
+  CARGANDO,
+  ERROR,
+  CAMBIO_USUARIO_ID,
+  CAMBIO_TITULO,
+  AGREGAR,
+} from "../Types/tareasTypes";
 
 const INITIAL_STATE = {
   tareas: {},
   cargando: false,
   error: "",
+  usuario_id: "",
+  titulo: "",
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -14,7 +23,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         tareas: action.payload,
         cargando: false,
-        error: ""
+        error: "",
       };
 
     case CARGANDO:
@@ -25,6 +34,14 @@ export default (state = INITIAL_STATE, action) => {
 
     case ERROR:
       return { ...state, error: action.payload, cargando: false };
+
+    case CAMBIO_USUARIO_ID:
+      return { ...state, usuario_id: action.payload };
+
+    case CAMBIO_TITULO:
+      return { ...state, titulo: action.payload };
+    case AGREGAR:
+      return { ...state, tareas: {}, cargando: false, error: "" };
 
     default:
       return state;
