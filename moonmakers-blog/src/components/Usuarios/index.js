@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Component } from "react";
 
 import Spinner from "../General/Spinner";
 import Error from "../General/Error";
@@ -10,41 +10,45 @@ import { connect } from "react-redux";
 // importamos nuestros actions
 import * as usuariosAction from "../../actions/usuariosActions";
 
-const Usuarios = (props) => {
-  const getUsuarios = async () => {
+class Usuarios extends Component {
+  componentDidMount() {
+    if (!this.props.usuarios.length) {
+      this.props.traerTodos();
+      console.log("en el traerTodos");
+    }
+    // getUsuarios();
+  }
+
+  getUsuarios = async () => {
     console.log("en el getUsuarios");
 
-    if (!props.usuarios.length) {
-      props.traerTodos();
+    if (!this.props.usuarios.length) {
+      this.props.traerTodos();
       console.log("en el traerTodos");
     }
   };
 
-  useEffect(() => {
-    getUsuarios();
-    console.log("en el useEffect");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const ponerContenido = () => {
-    if (props.cargando) {
+  ponerContenido = () => {
+    if (this.props.cargando) {
       return <Spinner />;
     }
 
-    if (props.error) {
-      return <Error mensaje={props.error} />;
+    if (this.props.error) {
+      return <Error mensaje={this.props.error} />;
     }
 
-    return <Tabla />;
+    return <Tabla info={this.props.usuarios} />;
   };
 
-  return (
-    <div>
-      <h1>Usuarios</h1>
-      {ponerContenido()}
-    </div>
-  );
-};
+  render() {
+    return (
+      <div>
+        <h1>Usuarios</h1>
+        {this.ponerContenido()}
+      </div>
+    );
+  }
+}
 
 // conectamos el estado a nuestro componente
 const mapStateToProps = (reducers) => {
