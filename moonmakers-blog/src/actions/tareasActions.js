@@ -100,7 +100,7 @@ export const editar = (tarea_editada) => async (dispatch) => {
   }
 };
 
-export const cambioCheck = (usu_id, tar_id) => async (dispatch, getState) => {
+export const cambioCheck = (usu_id, tar_id) => (dispatch, getState) => {
   const { tareas } = getState().tareasReducer;
   const seleccionada = tareas[usu_id][tar_id];
 
@@ -119,4 +119,26 @@ export const cambioCheck = (usu_id, tar_id) => async (dispatch, getState) => {
     type: ACTUALIZAR,
     payload: actualizadas,
   });
+};
+
+export const eliminar = (tar_id) => async (dispatch, getState) => {
+  dispatch({
+    type: CARGANDO,
+  });
+
+  try {
+    const respuesta = await axios.delete(
+      `https://jsonplaceholder.typicode.com/todos/${tar_id}`
+    );
+
+    console.log(respuesta);
+
+    dispatch({ type: TRAER_TODAS, payload: {} });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: ERROR,
+      payload: "El servicio no esta dispinible",
+    });
+  }
 };
