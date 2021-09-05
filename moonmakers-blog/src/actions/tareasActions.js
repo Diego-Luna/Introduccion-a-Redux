@@ -5,7 +5,8 @@ import {
   ERROR,
   CAMBIO_USUARIO_ID,
   CAMBIO_TITULO,
-  AGREGAR,
+  GUARDAR,
+  ACTUALIZAR,
 } from "../Types/tareasTypes";
 
 export const traerTodas = () => async (dispatch) => {
@@ -58,7 +59,6 @@ export const cambioUsuarioTitulo = (titulo) => (dispatch) => {
 };
 
 export const agregar = (nuevaTarea) => async (dispatch) => {
-  console.log(nuevaTarea);
   dispatch({
     type: CARGANDO,
   });
@@ -69,7 +69,7 @@ export const agregar = (nuevaTarea) => async (dispatch) => {
       nuevaTarea
     );
 
-    dispatch({ type: AGREGAR });
+    dispatch({ type: GUARDAR });
   } catch (error) {
     console.log(error.message);
     dispatch({
@@ -79,6 +79,44 @@ export const agregar = (nuevaTarea) => async (dispatch) => {
   }
 };
 
-export const editar = (tarea_editada) => (dispatch) => {
-  console.log(tarea_editada);
+export const editar = (tarea_editada) => async (dispatch) => {
+  dispatch({
+    type: CARGANDO,
+  });
+
+  try {
+    const respuesta = await axios.put(
+      `https://jsonplaceholder.typicode.com/todos/${tarea_editada.id}`,
+      tarea_editada
+    );
+
+    dispatch({ type: GUARDAR });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: ERROR,
+      payload: "Intente mas tarde",
+    });
+  }
+};
+
+export const cambioCheck = (usu_id, tar_id) => async (dispatch, getState) => {
+  const { tareas } = getState().tareasReducer;
+  const seleccionada = tareas[usu_id][tar_id];
+
+  const actualizadas = {
+    ...tareas,
+  };
+  actualizadas[usu_id] = {
+    ...tareas[usu_id],
+  };
+  actualizadas[usu_id][tar_id] = {
+    ...tareas[usu_id][tar_id],
+    completed: !seleccionada.completed,
+  };
+
+  dispatch({
+    type: ACTUALIZAR,
+    payload: actualizadas,
+  });
 };

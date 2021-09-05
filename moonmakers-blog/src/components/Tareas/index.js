@@ -35,7 +35,7 @@ class Tareas extends Component {
   };
 
   ponerTareas = (user_id) => {
-    const { tareas } = this.props;
+    const { tareas, cambioCheck } = this.props;
     // solo pones las tareas solo por usuarios
     const porUsuarios = {
       ...tareas[user_id],
@@ -43,7 +43,11 @@ class Tareas extends Component {
 
     return Object.keys(porUsuarios).map((tar_id) => (
       <div key={tar_id}>
-        <input type="checkbox" defaultChecked={porUsuarios[tar_id].completed} />
+        <input
+          type="checkbox"
+          defaultChecked={porUsuarios[tar_id].completed}
+          onChange={() => cambioCheck(user_id, tar_id)}
+        />
         {porUsuarios[tar_id].title}
         <button className="m_left">
           <Link to={`/tareas/guardar/${user_id}/${tar_id}`}>Editar</Link>

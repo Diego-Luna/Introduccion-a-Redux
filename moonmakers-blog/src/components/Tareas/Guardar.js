@@ -29,8 +29,6 @@ class Guardar extends Component {
 
     if (usu_id && tar_id) {
       const tarea = tareas[usu_id][tar_id];
-      console.log(tarea);
-      console.log(tarea.title);
       cambioUsuarioId(tarea.userId);
       cambioUsuarioTitulo(tarea.title);
     }
