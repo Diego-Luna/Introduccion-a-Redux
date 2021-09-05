@@ -7,6 +7,7 @@ import {
   CAMBIO_TITULO,
   GUARDAR,
   ACTUALIZAR,
+  LIMPIAR
 } from "../Types/tareasTypes";
 
 export const traerTodas = () => async (dispatch) => {
@@ -121,7 +122,7 @@ export const cambioCheck = (usu_id, tar_id) => (dispatch, getState) => {
   });
 };
 
-export const eliminar = (tar_id) => async (dispatch, getState) => {
+export const eliminar = (tar_id) => async (dispatch) => {
   dispatch({
     type: CARGANDO,
   });
@@ -130,9 +131,6 @@ export const eliminar = (tar_id) => async (dispatch, getState) => {
     const respuesta = await axios.delete(
       `https://jsonplaceholder.typicode.com/todos/${tar_id}`
     );
-
-    console.log(respuesta);
-
     dispatch({ type: TRAER_TODAS, payload: {} });
   } catch (error) {
     console.log(error.message);
@@ -141,4 +139,8 @@ export const eliminar = (tar_id) => async (dispatch, getState) => {
       payload: "El servicio no esta dispinible",
     });
   }
+};
+
+export const limpiarForma = () => (dispatch) => {
+  dispatch({type: LIMPIAR});
 };

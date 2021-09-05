@@ -10,13 +10,6 @@ import Error from "../General/Error";
 import * as tareasActions from "../../actions/tareasActions";
 
 class Guardar extends Component {
-  cambioUsuarioId = (event) => {
-    this.props.cambioUsuarioId(event.target.value);
-  };
-  cambioTitulo = (event) => {
-    this.props.cambioUsuarioTitulo(event.target.value);
-  };
-
   componentDidMount() {
     const {
       match: {
@@ -25,14 +18,24 @@ class Guardar extends Component {
       tareas,
       cambioUsuarioId,
       cambioUsuarioTitulo,
+      limpiarForma
     } = this.props;
 
     if (usu_id && tar_id) {
       const tarea = tareas[usu_id][tar_id];
       cambioUsuarioId(tarea.userId);
       cambioUsuarioTitulo(tarea.title);
+    }else{
+      limpiarForma();
     }
   }
+
+  cambioUsuarioId = (event) => {
+    this.props.cambioUsuarioId(event.target.value);
+  };
+  cambioTitulo = (event) => {
+    this.props.cambioUsuarioTitulo(event.target.value);
+  };
 
   gruardar = () => {
     const {
