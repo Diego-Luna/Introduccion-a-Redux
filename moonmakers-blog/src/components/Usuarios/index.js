@@ -12,13 +12,17 @@ import * as usuariosAction from "../../actions/usuariosActions";
 
 const Usuarios = (props) => {
   const getUsuarios = async () => {
-    if(!props.usuarios.length){
+    console.log("en el getUsuarios");
+
+    if (!props.usuarios.length) {
       props.traerTodos();
+      console.log("en el traerTodos");
     }
   };
 
   useEffect(() => {
     getUsuarios();
+    console.log("en el useEffect");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
