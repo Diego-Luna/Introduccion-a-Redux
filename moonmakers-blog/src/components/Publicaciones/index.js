@@ -126,7 +126,6 @@ class Posts extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div>
         {this.ponerUsuario()}

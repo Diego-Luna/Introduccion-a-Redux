@@ -14,17 +14,14 @@ class Usuarios extends Component {
   componentDidMount() {
     if (!this.props.usuarios.length) {
       this.props.traerTodos();
-      console.log("en el traerTodos");
     }
     // getUsuarios();
   }
 
   getUsuarios = async () => {
-    console.log("en el getUsuarios");
 
     if (!this.props.usuarios.length) {
       this.props.traerTodos();
-      console.log("en el traerTodos");
     }
   };
 

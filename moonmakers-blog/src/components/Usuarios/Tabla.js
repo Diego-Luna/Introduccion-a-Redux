@@ -6,7 +6,6 @@ const Tabla = (props) => {
 
 
   const ponerFilas = () => {
-    console.log(props);
 
     if(props.usuarios.length){
       return (props.usuarios.map((usuario, key) => (
